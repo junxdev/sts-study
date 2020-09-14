@@ -28,4 +28,9 @@ public class Dept03DaoImpl implements Dept03Dao {
 		String sql = "SELECT * FROM dept03";
 		return jdbcTemplate.query(sql, rowMapper);
 	}
+	
+	public Dept03Vo	selectOne(int deptno) {
+		String sql = "SELECT * FROM dept03 WHERE deptno = ?";
+		return jdbcTemplate.queryForObject(sql, rowMapper, deptno);
+	}
 }
