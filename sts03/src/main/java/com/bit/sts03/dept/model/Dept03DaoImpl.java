@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.bit.sts03.dept.model.entity.Dept03Vo;
 
 public class Dept03DaoImpl implements Dept03Dao {
+	
 	private JdbcTemplate jdbcTemplate;
 	private RowMapper<Dept03Vo> rowMapper = new RowMapper<Dept03Vo>() {
 		
@@ -29,11 +30,13 @@ public class Dept03DaoImpl implements Dept03Dao {
 		return jdbcTemplate.query(sql, rowMapper);
 	}
 	
+	@Override
 	public Dept03Vo	selectOne(int deptno) {
 		String sql = "SELECT * FROM dept03 WHERE deptno = ?";
 		return jdbcTemplate.queryForObject(sql, rowMapper, deptno);
 	}
 	
+	@Override
 	public void insertOne(Dept03Vo bean) throws SQLException {
 		jdbcTemplate.update("INSERT INTO dept03 (dname, loc) VALUES (?, ?)", bean.getDname(), bean.getLoc());
 	}
