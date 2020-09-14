@@ -33,4 +33,18 @@ public class Dept03DaoImpl implements Dept03Dao {
 		String sql = "SELECT * FROM dept03 WHERE deptno = ?";
 		return jdbcTemplate.queryForObject(sql, rowMapper, deptno);
 	}
+	
+	public void insertOne(Dept03Vo bean) throws SQLException {
+		jdbcTemplate.update("INSERT INTO dept03 (dname, loc) VALUES (?, ?)", bean.getDname(), bean.getLoc());
+	}
+	
+	@Override
+	public int updateOne(Dept03Vo bean) throws SQLException {
+		return jdbcTemplate.update("UPDATE dept03 SET dname = ?, loc = ? WHERE deptno = ?", bean.getDname(), bean.getLoc(), bean.getDeptno());
+	}
+	
+	@Override
+	public int zdeleteOne(int deptno) throws SQLException {
+		return jdbcTemplate.update("DELETE FROM dept03 WHERE deptno = ?", deptno);
+	}
 }

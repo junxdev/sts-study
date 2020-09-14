@@ -13,12 +13,15 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.bit.sts03.dept.model.entity.Dept03Vo;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Dept03DaoTest {
 
 	Dept03Dao dept03Dao;
@@ -34,8 +37,8 @@ public class Dept03DaoTest {
 		Connection conn = dataSource.getConnection();
 		
 		/* Create table */
-//		conn.prepareStatement("CREATE TABLE IF NOT EXISTS `dept03` (" + 
-		conn.prepareStatement("CREATE TABLE `dept03` (" + 
+		conn.prepareStatement("CREATE TABLE IF NOT EXISTS `dept03` (" + 
+//		conn.prepareStatement("CREATE TABLE `dept03` (" + 
 				"	`deptno` INT NOT NULL AUTO_INCREMENT," + 
 				"	`dname` VARCHAR(50) NULL DEFAULT NULL," + 
 				"	`loc` VARCHAR(50) NULL DEFAULT NULL," + 
@@ -49,10 +52,10 @@ public class Dept03DaoTest {
 	public static void tearDownAfterClass() throws Exception {
 		System.out.println("tearDownAfterClass");
 		
-		File file = new File("C:\\Users\\User\\Documents\\sts-study\\data\\xeTest.mv.db");
-		if(file.exists()) {
-			file.delete();
-		}
+//		File file = new File("C:\\Users\\User\\Documents\\sts-study\\data\\xeTest.mv.db");
+//		if(file.exists()) {
+//			file.delete();
+//		}
 	}
 
 	@Before
@@ -94,6 +97,28 @@ public class Dept03DaoTest {
 		assertEquals(target, dept03Dao.selectOne(target.getDeptno()));
 	}
 	
+	@Test
+	public void testInsertOne() {
+//		ApplicationContext ac = null;
+//		ac = new ClassPathXmlApplicationContext("/applicationContext.xml");
+//		Dept03Dao dept03Dao = (Dept03Dao) ac.getBean("dept03Dao");
+		try {
+			dept03Dao.insertOne(new Dept03Vo(0, "insertOne", "test"));
+		} catch (SQLException e) {
+			assertFalse(true);
+		}
+	}
+	
+	@Test
+	public void testUpdateOne() throws SQLException {
+		assertSame(1, dept03Dao.updateOne(new Dept03Vo(1, "update", "update")));
+	}
+	
+	@Test
+	public void testZDeleteOne() throws SQLException {
+		assertSame(1, dept03Dao.zdeleteOne(1));
+	}
+	
 //	@Test
 //	public void testFirst() throws SQLException {
 //		ApplicationContext ac = null;
@@ -109,7 +134,7 @@ public class Dept03DaoTest {
 //				"	`loc` VARCHAR(50) NULL DEFAULT NULL," + 
 //				"	PRIMARY KEY (`deptno`)\r\n" + 
 //				")").execute();
-		/* Insert dummy data*/
+//		/* Insert dummy data*/
 //		conn.prepareStatement("INSERT INTO dept03 (dname, loc) VALUES ('test', 'test')").executeUpdate();
 //	}
 
