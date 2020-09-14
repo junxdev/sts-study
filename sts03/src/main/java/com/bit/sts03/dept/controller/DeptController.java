@@ -25,16 +25,22 @@ public class DeptController {
 	Dept03Dao dept03Dao;
 	
 	@RequestMapping("list")
-	public String list(Model model) {
+	public String list(Model model) throws SQLException {
 		model.addAttribute("list", dept03Dao.selectAll());
 		return "dept/list";
 	}
 	
-	@RequestMapping("/{deptno}")
-	public String one(@PathVariable("deptno") int deptno, Model model) {
+	@RequestMapping(value = "/{deptno}", method = RequestMethod.GET)
+	public String one(@PathVariable("deptno") int deptno, Model model) throws SQLException {
 		model.addAttribute("bean", dept03Dao.selectOne(deptno));
 		model.addAttribute("title", "Information");
 		return "dept/form";
+	}
+
+	@RequestMapping(value = "/{deptno}", method = RequestMethod.POST)
+	public String update(@ModelAttribute("bean") Dept03Vo bean) throws SQLException {
+		dept03Dao.updateOne(bean);
+		return "redirect:" + bean.getDeptno();
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)

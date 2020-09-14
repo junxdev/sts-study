@@ -73,7 +73,7 @@ public class Dept03DaoTest {
 	}
 
 	@Test
-	public void testSelectAll() {
+	public void testSelectAll() throws SQLException {
 //		ApplicationContext ac = null;
 //		ac = new ClassPathXmlApplicationContext("/applicationContext.xml");
 //		Dept03Dao dept03Dao = (Dept03Dao) ac.getBean("dept03Dao");
@@ -87,7 +87,7 @@ public class Dept03DaoTest {
 	}
 	
 	@Test
-	public void testSelectOne() {
+	public void testSelectOne() throws SQLException {
 		Dept03Vo target = new Dept03Vo(1, "test", "test");
 		
 //		ApplicationContext ac = null;
@@ -98,7 +98,7 @@ public class Dept03DaoTest {
 	}
 	
 	@Test
-	public void testInsertOne() {
+	public void testInsertOne() throws SQLException {
 //		ApplicationContext ac = null;
 //		ac = new ClassPathXmlApplicationContext("/applicationContext.xml");
 //		Dept03Dao dept03Dao = (Dept03Dao) ac.getBean("dept03Dao");
