@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit">
+  <select id="selectAll" resultType="com.bit.sts04.model.entity.EmpVo">
+    select * from emp03 order by empno desc
+  </select>
+  <insert id="insertOne">
+  	insert into emp03 (ename, sal, hiredate, deptno) values (#{ename}, #{sal}, now(), #{deptno})
+  </insert>
+  <select id="selectOne" parameterType="int" resultType="com.bit.sts04.model.entity.EmpVo">
+  	select * from emp03 where empno = #{key}
+  </select>
+</mapper>
