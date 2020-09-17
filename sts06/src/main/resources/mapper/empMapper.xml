@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="emp">
+  	<select id="selectAll" resultType="empBean" parameterType="_int">
+  		SELECT * FROM emp03
+  		<where>
+  			<if test="val eq null">
+  				empno between 1 + (5 * 0) and 5 * 1
+  			</if>
+  			<if test="val neq null">
+  				empno between 1 + (5 * (#{val} - 1)) and 5 * #{val}
+  			</if>
+  		</where>
+  	</select>
+  </mapper>
