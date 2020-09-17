@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dept">
+	<select id="selectDept" parameterType="deptBean" resultType="com.bit.sts05.dept.model.entity.DeptVo">
+  		select * from dept03 
+  		<!-- 
+  		<if test="deptno == null">
+	  		order by deptno desc
+  		</if>
+  		 -->
+  		<trim prefix="where" prefixOverrides="and">
+  			<if test="deptno != 0">
+  				and deptno = #{deptno}
+  			</if>
+  			<if test="dname != null">
+  				and dname = #{dname}
+  			</if>
+  		</trim>
+  	</select>
+  	<select id="selectOne" parameterType="_int" resultType="deptBean">
+  		select * from dept03 
+  		<if test="param == null">
+  		order by deptno desc
+  		</if>
+  		<if test="pararm != 0">
+  		where deptno = #{param}
+  		</if>
+  	</select>
+  	<select id="selectEach" resultType="deptBean" parameterType="list">
+  		select * from dept where deptno in 
+  		<foreach collection="list" item="item" open="(" separator="," close=")">
+  			#{item}
+  		</foreach>
+  	</select>
+
+	<!-- <select id="selectAll" parameterType="_int" resultType="deptBean"> -->
+	<select id="selectAll" resultType="deptBean">
+		select * from dept03
+		<!-- 
+		<if test="val eq null">
+			1 and 1+2
+		</if>
+		<if test="val neq null">
+			#{val} and #{val}+2
+		</if>
+		 -->
+	</select>  	
+</mapper>
