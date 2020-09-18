@@ -9,6 +9,7 @@ public class EmpVo {
 	private int sal;
 	private Timestamp hiredate;
 	private int deptno;
+	private String dname;
 	
 	public EmpVo() {
 	}
@@ -60,6 +61,14 @@ public class EmpVo {
 
 	public void setDeptno(int deptno) {
 		this.deptno = deptno;
+	}
+
+	public String getDname() {
+		return dname;
+	}
+
+	public void setDname(String dname) {
+		this.dname = dname;
 	}
 
 	@Override

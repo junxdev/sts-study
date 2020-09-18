@@ -6,4 +6,10 @@
   	<select id="selectAll" resultType="com.bit.sts07.model.entity.DeptVo">
   		SELECT * FROM dept03
   	</select>
+  	<insert id="insertOne">
+  		INSERT INTO dept03 (dname, loc) VALUES (#{dname}, #{loc})
+  	</insert>
+  	<select id="selectOne" resultType="com.bit.sts07.model.entity.DeptVo">
+  		SELECT * FROM dept03 WHERE deptno = #{param}
+  	</select>
   </mapper>
