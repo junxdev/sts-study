@@ -34,5 +34,17 @@ public class DeptServiceImpl implements DeptService {
 		DeptDao deptDao = sqlSession.getMapper(DeptDao.class);
 		model.addAttribute("bean", deptDao.selectOne(deptno));
 	}
+	
+	@Override
+	public void editOneService(DeptVo bean) throws SQLException {
+		DeptDao deptDao = sqlSession.getMapper(DeptDao.class);
+		deptDao.updateOne(bean);
+	}
+	
+	@Override
+	public void deleteOneService(int deptno) throws SQLException {
+		DeptDao deptDao = sqlSession.getMapper(DeptDao.class);
+		deptDao.deleteOne(deptno);
+	}
 
 }

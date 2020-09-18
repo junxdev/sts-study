@@ -14,4 +14,8 @@ public interface DeptService {
 
 	void detailService(Model model, int deptno) throws SQLException;
 
+	void editOneService(DeptVo bean) throws SQLException;
+
+	void deleteOneService(int deptno) throws SQLException;
+
 }

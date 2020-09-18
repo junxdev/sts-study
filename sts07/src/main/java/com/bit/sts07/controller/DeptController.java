@@ -68,13 +68,21 @@ public class DeptController {
 	
 	@RequestMapping(value = "/{deptno}", method = RequestMethod.PUT)
 	public String update(@PathVariable int deptno, @ModelAttribute DeptVo bean) {
-		System.out.println("update");
-		return "redirect:." + deptno;
+		try {
+			deptService.editOneService(bean);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "redirect:./" + deptno;
 	}
 	
 	@RequestMapping(value = "/{deptno}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable int deptno) {
-		System.out.println("delete");
-		return "redirect:..";
+		try {
+			deptService.deleteOneService(deptno);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "redirect:.";
 	}
 }
