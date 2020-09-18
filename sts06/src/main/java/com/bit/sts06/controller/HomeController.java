@@ -16,8 +16,15 @@ import com.bit.sts06.emp.model.entity.EmpVo;
 @Controller
 public class HomeController {
 	
+	Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	public HomeController() {
+		log.debug("HomeController");
+	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
+		log.debug("home page");
 		return "home";
 	}
 	

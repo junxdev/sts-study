@@ -6,12 +6,15 @@
   	<select id="selectAll" resultType="empBean" parameterType="_int">
   		SELECT * FROM emp03
   		<where>
-  			<if test="val eq null">
+  			<if test="page eq null">
   				empno between 1 + (5 * 0) and 5 * 1
   			</if>
-  			<if test="val neq null">
-  				empno between 1 + (5 * (#{val} - 1)) and 5 * #{val}
+  			<if test="page neq null">
+  				empno between 1 + (5 * (#{page} - 1)) and 5 * #{page}
   			</if>
   		</where>
   	</select>
+  	<insert id="insertOne" parameterType="empBean">
+  		INSERT INTO emp03 (ename, sal, hiredate, deptno) VALUES (#{ename}, #{sal}, now(), #{deptno})
+  	</insert>
   </mapper>

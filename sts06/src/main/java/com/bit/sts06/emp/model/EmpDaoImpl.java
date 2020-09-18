@@ -30,5 +30,9 @@ public class EmpDaoImpl implements EmpDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@Override
+	public void insertOne(EmpVo bean) throws SQLException {
+		sqlSession.insert("emp.insertOne", bean);
+	}
 }
