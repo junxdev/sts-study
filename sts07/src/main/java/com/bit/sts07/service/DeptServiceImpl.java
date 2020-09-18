@@ -27,6 +27,11 @@ public class DeptServiceImpl implements DeptService {
 	public void addOneService(DeptVo bean) throws SQLException {
 		DeptDao deptDao = sqlSession.getMapper(DeptDao.class);
 		deptDao.insertOne(bean);
+		/*
+		 * Transaction Manager Example
+		 * bean.setDname("Make exception!!!!!!!!!!!!!!!!!" + bean.getDname());
+		 * dao.insertOne(bean);
+		*/
 	}
 	
 	@Override
@@ -45,6 +50,10 @@ public class DeptServiceImpl implements DeptService {
 	public void deleteOneService(int deptno) throws SQLException {
 		DeptDao deptDao = sqlSession.getMapper(DeptDao.class);
 		deptDao.deleteOne(deptno);
+		/*
+		 * Transaction Manager Example
+		 * dao.deleteOne(deptno - 1);
+		*/
 	}
 
 }
