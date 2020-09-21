@@ -1,5 +1,8 @@
 package com.bit.sts08.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,5 +86,17 @@ public class DeptController {
 	@ResponseBody
 	public DeptVo detail(@PathVariable int deptno) throws SQLException {
 		return deptService.detail(deptno);
+	}
+	
+	@RequestMapping(value = "/dept/", method = RequestMethod.PUT)
+	@ResponseBody
+//	public void update(@ModelAttribute DeptVo bean) {
+//		System.out.println(bean);
+//	public void update(HttpServletRequest req) throws IOException {
+//		BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+//		System.out.println(reader.readLine());
+	public String update(@RequestBody DeptVo bean) throws SQLException {
+		deptService.updateOne(bean);
+		return "update";
 	}
 }

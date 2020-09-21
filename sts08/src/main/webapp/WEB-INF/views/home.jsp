@@ -63,7 +63,34 @@
 				$('#myModal form .form-group input').eq(1).val(data.dname);
 				$('#myModal form .form-group input').eq(2).val(data.loc);
 				$('#myModal').modal();
-			})
+				$('#myModal .modal-footer button').eq(0).click(function() {
+					$('#myModal form .form-group input').eq(1).prop('readonly', false);
+					$('#myModal form .form-group input').eq(2).prop('readonly', false);
+					$(this).off('click');
+					$(this).click(function() {
+						editDept();
+					});
+				});
+			});
+		}
+		function editDept() {
+			/* 
+			var params = $('#myModal form').serialize();
+			 */
+			var params = {'deptno':$('#deptno').val(), 'dname':$('#dname').val(), 'loc':$('#loc').val()};
+			console.log(params);
+			$.ajax({
+				url: 'dept/',
+				type: 'put',
+				data: JSON.stringify(params),
+				contentType: 'application/json; charset=utf-8',
+				success: function() {
+					$('.jumbotron').prev().remove();
+					$('.jumbotron').next().remove();
+					callDeptList();
+					$('#myModal').modal('hide')
+				}
+			});
 		}
 	</script>
 </head>
@@ -125,19 +152,19 @@
 	        <div class="form-group">
 			    <label for="deptno" class="col-sm-2 control-label">No</label>
 			    <div class="col-sm-10">
-			      <input type="email" class="form-control" name="deptno" placeholder="" readonly="readonly">
+			      <input type="text" class="form-control" name="deptno" id="deptno" placeholder="" readonly="readonly">
 			    </div>
 			  </div>
 	        <div class="form-group">
 			    <label for="dname" class="col-sm-2 control-label">Name</label>
 			    <div class="col-sm-10">
-			      <input type="email" class="form-control" name="dname" placeholder="" readonly="readonly">
+			      <input type="text" class="form-control" name="dname" id="dname" placeholder="" readonly="readonly">
 			    </div>
 			  </div>
 	        <div class="form-group">
 			    <label for="loc" class="col-sm-2 control-label">Location</label>
 			    <div class="col-sm-10">
-			      <input type="email" class="form-control" name="loc" placeholder="" readonly="readonly">
+			      <input type="text" class="form-control" name="loc" id="loc" placeholder="" readonly="readonly">
 			    </div>
 			  </div>
 	      </div>
