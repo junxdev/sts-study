@@ -12,9 +12,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bit.sts08.model.entity.DeptVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
+@Transactional
 public class DeptDaoTest {
 	
 	@Inject
@@ -32,18 +36,35 @@ public class DeptDaoTest {
 	}
 
 	@Test
-	public void testSelectOne() {
-		fail("Not yet implemented");
+	public void testSelectOne() throws SQLException {
+		assertNotNull(sqlSession.getMapper(DeptDao.class).selectOne(1));
 	}
 
 	@Test
-	public void testInsertOne() {
-		fail("Not yet implemented");
+	public void testCRUD() throws SQLException {
+		assertSame(8, sqlSession.getMapper(DeptDao.class).selectAll().size());
+		
+		DeptVo target = new DeptVo(0, "crudtest", "crudtest");
+		sqlSession.getMapper(DeptDao.class).insertOne(target);
+		
+		assertSame(9, sqlSession.getMapper(DeptDao.class).selectAll().size());
+		target.setDeptno(sqlSession.getMapper(DeptDao.class).selectAll().get(8).getDeptno());
+		target.setDname("update");
+		target.setLoc("update");
+		sqlSession.getMapper(DeptDao.class).updateOne(target);
+		assertEquals(target, sqlSession.getMapper(DeptDao.class).selectOne(target.getDeptno()));
+		
+		sqlSession.getMapper(DeptDao.class).deleteOne(target.getDeptno());
+		assertSame(8, sqlSession.getMapper(DeptDao.class).selectAll().size());
 	}
 
 	@Test
-	public void testUpdateOne() {
-		fail("Not yet implemented");
+	public void testTx() throws SQLException {
+		assertSame(8, sqlSession.getMapper(DeptDao.class).selectAll().size());
+		DeptVo target = new DeptVo(0, "txtest", "rollback");
+		sqlSession.getMapper(DeptDao.class).insertOne(target);
+		assertSame(8, sqlSession.getMapper(DeptDao.class).selectAll().size());
+		
 	}
 
 	@Test
