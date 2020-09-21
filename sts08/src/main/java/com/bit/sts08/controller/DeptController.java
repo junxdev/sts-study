@@ -8,15 +8,17 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.sts08.model.entity.DeptVo;
 import com.bit.sts08.service.DeptService;
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 @Controller
 public class DeptController {
@@ -34,21 +36,24 @@ public class DeptController {
 //		return "deptListJson";
 //	}
 	
-	@RequestMapping(value = "/dept/", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
+//	@RequestMapping(value = "/dept/", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
+	@RequestMapping(value = "/dept/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public Map list(Model model) {
+	public Map<String, Object> list(Model model) {
 		try {
-			deptService.list(model);
+//			deptService.list(model);
+			return deptService.list();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		Map map = new HashMap();
-		List list = new ArrayList();
-		list.add(new DeptVo());
-		list.add(new DeptVo());
-		list.add(new DeptVo());
-		map.put("root", list);
-		return map;
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		List<Object> list = new ArrayList<Object>();
+//		list.add(new DeptVo());
+//		list.add(new DeptVo());
+//		list.add(new DeptVo());
+//		map.put("root", list);
+//		return map;
+		return null;
 	}
 	
 //	@RequestMapping(value = "/dept/", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
@@ -70,4 +75,9 @@ public class DeptController {
 //		return gson.toJson(map);
 //	}
 	
+	@RequestMapping(value = "/dept/{deptno}")
+	@ResponseBody
+	public DeptVo detail(@PathVariable int deptno) throws SQLException {
+		return deptService.detail(deptno);
+	}
 }

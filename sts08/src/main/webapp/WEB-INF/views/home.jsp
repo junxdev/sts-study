@@ -5,6 +5,14 @@
 	<meta charset="UTF-8">
 	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+	<style type="text/css">
+		table > tbody > tr {
+			cursor: pointer;
+		}
+		table > tbody > tr:hover {
+			background-color: rgba(200, 200, 200, 0.8);
+		}
+	</style>
 	<script type="text/javascript" src="resources/js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.js"></script>
 	<script type="text/javascript">
@@ -42,6 +50,20 @@
 							+ alist[i].dname + '</td><td>' + alist[i].loc + '</td></tr>');
 				}
 			});
+			$(document).on('click', 'table > tbody > tr', function() {
+				var deptno = $(this).find("td").first().text();
+				if(deptno) {
+					callDeptDetail(deptno);
+				}
+			});
+		}
+		function callDeptDetail(deptno) {
+			$.getJSON('dept/' + deptno, function(data) {
+				$('#myModal form .form-group input').eq(0).val(data.deptno);
+				$('#myModal form .form-group input').eq(1).val(data.dname);
+				$('#myModal form .form-group input').eq(2).val(data.loc);
+				$('#myModal').modal();
+			})
 		}
 	</script>
 </head>
@@ -91,5 +113,42 @@
 		<h2>Hello, world</h2>
 		<p>Programming education</p>
 	</div>
+	<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    <form class="form-horizontal">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Modal title</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+			    <label for="deptno" class="col-sm-2 control-label">No</label>
+			    <div class="col-sm-10">
+			      <input type="email" class="form-control" name="deptno" placeholder="" readonly="readonly">
+			    </div>
+			  </div>
+	        <div class="form-group">
+			    <label for="dname" class="col-sm-2 control-label">Name</label>
+			    <div class="col-sm-10">
+			      <input type="email" class="form-control" name="dname" placeholder="" readonly="readonly">
+			    </div>
+			  </div>
+	        <div class="form-group">
+			    <label for="loc" class="col-sm-2 control-label">Location</label>
+			    <div class="col-sm-10">
+			      <input type="email" class="form-control" name="loc" placeholder="" readonly="readonly">
+			    </div>
+			  </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary">Edit</button>
+	        <button type="button" class="btn btn-danger">Delete</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </form>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </body>
 </html>
