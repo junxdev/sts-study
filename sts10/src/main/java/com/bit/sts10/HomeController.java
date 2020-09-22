@@ -57,8 +57,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/page4")
-	public void page4() {
-		System.out.println("page4");
+	public void page4(HttpSession session) {
+		System.out.println("page4 : " + session.getId());
 	}
 	
 	@RequestMapping("/login")

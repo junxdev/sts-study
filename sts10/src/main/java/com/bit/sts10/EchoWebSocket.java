@@ -9,12 +9,16 @@ public class EchoWebSocket extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println(Thread.currentThread().getStackTrace()[1]);
+		System.out.println(Thread.currentThread().getStackTrace()[1] + " : " + session.getId());
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println(Thread.currentThread().getStackTrace()[1]);
+		String msg = message.getPayload();
+		System.out.println(msg);
+		TextMessage text = new TextMessage("Server : " + msg);
+		session.sendMessage(message);
 	}
 	
 	@Override
