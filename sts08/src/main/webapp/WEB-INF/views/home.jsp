@@ -88,7 +88,7 @@
 					$('.jumbotron').prev().remove();
 					$('.jumbotron').next().remove();
 					callDeptList();
-					$('#myModal').modal('hide')
+					$('#myModal').modal('hide');
 				}
 			});
 		}
